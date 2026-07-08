@@ -9,14 +9,16 @@ const row1 = [
 
 const row2 = [
   'PyTorch', 'LangChain', 'HuggingFace',
-  'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Web Sockets',
+  'PostgreSQL', 'MongoDB', 'Redis', 'Docker',
+  
   'PyTorch', 'LangChain', 'HuggingFace',
-  'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Web Sockets',
+  'PostgreSQL', 'MongoDB', 'Redis', 'Docker'
 ];
 
 export default function TechStack() {
   return (
     <section className="marquee-section">
+      <div className="marquee-label">Tech Stack</div>
       <div style={{ overflow: 'hidden' }}>
         <div className="marquee-track left">
           {row1.map((tech, i) => (

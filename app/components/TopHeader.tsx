@@ -5,7 +5,7 @@ import Image from 'next/image';
 import avatarImage from '@/assets/avatar.jpg';
 
 export default function TopHeader() {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('--:--');
 
   useEffect(() => {
     // Set initial time

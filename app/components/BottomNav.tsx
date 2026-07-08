@@ -1,15 +1,17 @@
+import Link from 'next/link';
+
 export default function BottomNav() {
   return (
     <nav className="bottom-nav" aria-label="Main navigation">
-      <a href="#home" title="Home">
+      <Link href="/#home" title="Home">
         Home
-      </a>
-      <a href="#projects" title="Projects">
+      </Link>
+      <Link href="/#projects" title="Projects">
         Projects
-      </a>
-      <a href="#writing" title="Writing">
+      </Link>
+      <Link href="/blogs" title="Blogs">
         Blogs
-      </a>
+      </Link>
     </nav>
   );
 }

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-08T13:05:00Z",
+  "title": "Design System: Manan Bansal Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "canvas": { "role": "neutral", "displayName": "Deep Void Canvas", "canonical": "oklch(9% 0 0)", "tonalRamp": ["#000000", "#050605", "#0b0d0c", "#101311", "#1b1f1c", "#323a35", "#5c6861", "#edf0e6"] },
+      "surface": { "role": "neutral", "displayName": "Soot Surface", "canonical": "oklch(14% 0.002 120)", "tonalRamp": ["#000000", "#0b0d0c", "#131715", "#1c221e", "#303934", "#505f57", "#859d90", "#edf0e6"] },
+      "surface-raised": { "role": "neutral", "displayName": "Elevated Soot", "canonical": "oklch(18% 0.003 120)", "tonalRamp": ["#000000", "#101311", "#1b211d", "#262e29", "#3d4b43", "#62786b", "#9bbdb0", "#edf0e6"] },
+      "accent": { "role": "primary", "displayName": "Tactical Neon Green", "canonical": "oklch(89% 0.22 115)", "tonalRamp": ["#182405", "#2e450b", "#496d11", "#689c19", "#8dcf25", "#b7f34a", "#cfff73", "#e7ffa1"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Main introductory headings in hero sections." },
+      "headline": { "displayName": "Headline", "purpose": "Main page section headers." },
+      "body": { "displayName": "Body", "purpose": "Prose content and descriptions." },
+      "label": { "displayName": "Label", "purpose": "Metadata, tags, and secondary monospaced details." }
+    },
+    "shadows": [
+      { "name": "interactive-glow", "value": "0 0 20px rgba(183, 243, 74, 0.06)", "purpose": "Soft, neon-tinted separation for floating items." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Smooth transition for layouts and card hovering." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "36rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Component to display project highlights, tags, and links.",
+      "html": "<div class=\"ds-project-card\"><div class=\"ds-card-header\"><h3 class=\"ds-project-name\">Sahayak</h3><span class=\"ds-project-year\">2026</span></div><p class=\"ds-project-description\">AI-powered volunteer coordination platform.</p><div class=\"ds-project-tags\"><span class=\"ds-tag ds-tag-domain\">Gen AI</span><span class=\"ds-tag\">React</span></div></div>",
+      "css": ".ds-project-card { background: #101311; border: 1px solid rgba(237, 240, 230, 0.12); border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: default; } .ds-project-card:hover { border-color: #b7f34a; transform: translateY(-2px); } .ds-card-header { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; } .ds-project-name { font-family: 'Inter', sans-serif; font-size: 0.8125rem; font-weight: 600; color: #edf0e6; margin: 0; } .ds-project-year { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; color: #656a64; } .ds-project-description { font-size: 0.6875rem; line-height: 1.65; color: #999f97; margin: 0; } .ds-project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; } .ds-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; border: 1px solid rgba(237, 240, 230, 0.12); border-radius: 20px; padding: 0.25rem 0.75rem; color: #656a64; } .ds-tag-domain { border-color: #b7f34a; color: #b7f34a; background: #182405; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Technical Monologue",
+    "overview": "The Technical Monologue is a design environment structured for absolute legibility, clean spacing, and industrial precision. It treats the portfolio as a curated dashboard of selected works and tools, utilizing a dark, near-black void to frame high-contrast off-white copy. Monospace tags and indices anchor the visual weight, suggesting engineering-first craft.",
+    "keyCharacteristics": [
+      "Dark void backdrop (#050605) providing extreme ink contrast.",
+      "Strict typography pairing (Inter sans-serif for reading, JetBrains Mono for metadata and indices).",
+      "High visual economy, reserving neon-green highlights strictly for interaction states and active statuses."
+    ],
+    "rules": [
+      { "name": "The Neon Constraint Rule", "body": "The neon green accent (#b7f34a) must occupy <= 5% of any screen's layout. It is a tool for navigation and focus feedback, never a background wash or dominant visual weight.", "section": "colors" },
+      { "name": "The Monospace Accent Rule", "body": "JetBrains Mono must never be used for long body text or display headings. It is strictly reserved for short identifiers, tags, and small utility outputs.", "section": "typography" },
+      { "name": "The Flat Canvas Rule", "body": "Drop shadows and soft blur cards are prohibited as general elements. Visual elevation must be established using thin 1px lines and surface background steps.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do respect the 65–75ch width limit for body prose to keep paragraphs highly readable.",
+      "Do use text-wrap: balance on headers h1–h3 and text-wrap: pretty on paragraphs to prevent orphans.",
+      "Do ensure interactive triggers provide a clean focus outline on keyboard navigation (focus-visible)."
+    ],
+    "donts": [
+      "Don't use decorative gradients (e.g. gradient text overlays or colorful glowing background blobs).",
+      "Don't use side-stripe borders (e.g. left border accents) to denote list hierarchy.",
+      "Don't use uppercase tracked eyebrows as headers on every section.",
+      "Don't use nested cards."
+    ]
+  }
+}

@@ -19,6 +19,11 @@ export default function HeroSection() {
         <h1 id="intro-heading">Manan Bansal</h1>
         <p className="subtitle">AI & Full-Stack Developer</p>
         
+        <div className="availability" aria-live="polite">
+          <span className="availability-dot" />
+          available for collaborations
+        </div>
+        
         <p className="intro">
           Hey, I{`'`}m Manan, a 19 year old AI and Full-Stack Developer based in India. Currently a third year engineering undergrad at NITJ. Building across AI/ML, Automation pipelines, and learning how systems work.
         </p>

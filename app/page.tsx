@@ -1,13 +1,17 @@
 import TopHeader from './components/TopHeader';
 import BottomNav from './components/BottomNav';
 import HeroSection from './components/HeroSection';
-import SectionPreview from './components/SectionPreview';
 import Projects from './components/Projects';
 import TechStack from './components/TechStack';
+import BlogsSection from './components/BlogsSection';
+import { getSortedPostsData } from '@/app/lib/posts';
 
 export default function Home() {
+  const allPosts = getSortedPostsData();
+  const recentPosts = allPosts.slice(0, 3);
+
   return (
-    <div className="site-shell">
+    <div className="site-shell" id="home">
       <div style={{
         position: 'fixed',
         inset: 0,
@@ -32,7 +36,12 @@ export default function Home() {
           <HeroSection />
           <TechStack />
           <Projects />
-          <SectionPreview />
+          {recentPosts.length > 0 && <BlogsSection posts={recentPosts} />}
+          
+          <footer className="site-footer">
+            <span>© 2026 Manan Bansal</span>
+            <span>Built with Next.js</span>
+          </footer>
         </main>
 
         <BottomNav />
