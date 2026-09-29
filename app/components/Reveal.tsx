@@ -1,47 +1,54 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface RevealProps {
   children: React.ReactNode;
   delay?: number;
 }
 
+/**
+ * Reveals its children on first scroll into view.
+ *
+ * The hidden state is applied by an effect, through a data attribute, rather
+ * than through render state. Server-rendered markup therefore ships with no
+ * hidden state at all, so the content stays visible when JavaScript is
+ * unavailable, when a renderer never fires IntersectionObserver, or when the
+ * visitor prefers reduced motion.
+ */
 export default function Reveal({ children, delay = 0 }: RevealProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const element = ref.current;
+
+    if (!element) {
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    element.dataset.reveal = 'pending';
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
-          observer.unobserve(entry.target);
+          element.dataset.reveal = 'shown';
+          observer.unobserve(element);
         }
       },
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
 
     return () => observer.disconnect();
-  }, [delay]);
+  }, []);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        animation: isVisible ? `fadeInUp 0.6s ease-out forwards` : 'none',
-        minHeight: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div ref={ref} className="reveal" style={{ '--reveal-delay': `${delay}ms` } as React.CSSProperties}>
       {children}
     </div>
   );

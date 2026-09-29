@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import avatarImage from '@/assets/avatar.jpg';
+import { RESUME_HREF, hasResume } from '@/app/lib/resume';
 
 export default function HeroSection() {
   return (
@@ -23,17 +24,28 @@ export default function HeroSection() {
           <span className="availability-dot" />
           available for collaborations
         </div>
+
+        {hasResume() && (
+          <a
+            href={RESUME_HREF}
+            className="hero-resume-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            view resume →
+          </a>
+        )}
         
         <p className="intro">
           Hey, I{`'`}m Manan, a 19 year old AI and Full-Stack Developer based in India. Currently a third year engineering undergrad at NITJ. Building across AI/ML, Automation pipelines, and learning how systems work.
         </p>
 
         <p className="intro">
-  I enjoy reading, discovering great movies and TV series, and working out.
-</p>
+          I enjoy reading, discovering great movies and TV series, and working out.
+        </p>
         
         <p className="intro">
-            If any of that sounds interesting, let{`'`}s connect!
+          If any of that sounds interesting, let{`'`}s connect!
         </p>
         
         <div className="socials" aria-label="Social links">

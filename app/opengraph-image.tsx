@@ -26,16 +26,6 @@ export default async function Image() {
           position: 'relative',
         }}
       >
-        {/* Background Grid Pattern matching site */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: 'linear-gradient(to right, rgba(237,240,230,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,240,230,0.04) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-
         {/* Live indicator block */}
         <div
           style={{
@@ -96,7 +86,7 @@ export default async function Image() {
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
-            color: '#656a64',
+            color: '#7a8079',
             fontFamily: 'monospace',
             fontSize: '18px',
             borderTop: '1px solid rgba(237,240,230,0.08)',

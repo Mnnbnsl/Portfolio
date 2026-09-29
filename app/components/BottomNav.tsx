@@ -12,6 +12,9 @@ export default function BottomNav() {
       <Link href="/blogs" title="Blogs">
         Blogs
       </Link>
+      <Link href="/#contact" title="Contact">
+        Contact
+      </Link>
     </nav>
   );
 }

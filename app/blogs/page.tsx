@@ -9,24 +9,6 @@ export default function BlogsPage() {
 
   return (
     <div className="site-shell">
-      {/* Visual background layers matching main page */}
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 0,
-        backgroundSize: '40px 40px',
-        backgroundImage: 'linear-gradient(to right, rgba(237,240,230,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,240,230,0.07) 1px, transparent 1px)',
-      }} />
-
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 1,
-        backgroundColor: 'var(--canvas)',
-        maskImage: 'radial-gradient(ellipse 50% 100% at 50% 50%, transparent 40%, black 80%)',
-        WebkitMaskImage: 'radial-gradient(ellipse 50% 100% at 50% 50%, transparent 40%, black 80%)',
-      }} />
-
       <div style={{ position: 'relative', zIndex: 2 }}>
         <TopHeader />
 
