@@ -1,12 +1,16 @@
 import TopHeader from './components/TopHeader';
-import BottomNav from './components/BottomNav';
 import HeroSection from './components/HeroSection';
+import OverviewSection from './components/OverviewSection';
 import Projects from './components/Projects';
-import TechStack from './components/TechStack';
 import BlogsSection from './components/BlogsSection';
+import ReadingSection from './components/ReadingSection';
 import ContactSection from './components/ContactSection';
+import SiteFooter from './components/SiteFooter';
 import { getSortedPostsData } from '@/app/lib/posts';
 import { getProjects } from '@/app/lib/projects';
+
+/** The home shelf mirrors /books, so refresh it on the same hourly cadence. */
+export const revalidate = 3600;
 
 export default async function Home() {
   const allPosts = getSortedPostsData();
@@ -15,25 +19,20 @@ export default async function Home() {
 
   return (
     <div className="site-shell" id="home">
-      <div style={{ position: 'relative', zIndex: 2 }}>
+      <div className="page-content">
         <TopHeader />
 
-        <main id="top" className="reading-column main-content">
+        <main id="top" className="reading-column main-content home-main">
           <HeroSection />
-          <TechStack />
+          <OverviewSection />
           <Projects projects={projects} />
           {recentPosts.length > 0 && <BlogsSection posts={recentPosts} />}
+          <ReadingSection />
           <ContactSection />
-          
-          <footer className="site-footer">
-            <span>© 2026 Manan Bansal</span>
-            <span>Built with Next.js</span>
-          </footer>
+
+          <SiteFooter />
         </main>
-
-        <BottomNav />
       </div>
-
     </div>
   );
 }

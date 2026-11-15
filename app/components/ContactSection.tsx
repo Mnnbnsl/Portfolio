@@ -12,7 +12,10 @@ function SubmitButton() {
 
   return (
     <button type="submit" className="contact-submit" disabled={pending}>
-      {pending ? 'sending…' : 'send message'}
+      <span>{pending ? 'sending…' : 'send message'}</span>
+      <span className="contact-submit-arrow" aria-hidden="true">
+        ↗
+      </span>
     </button>
   );
 }
@@ -25,59 +28,95 @@ export default function ContactSection() {
 
   return (
     <section className="contact-section" id="contact" aria-labelledby="contact-heading">
-      <div className="projects-header">
-        <h2 className="section-heading" id="contact-heading">
-          Contact
-        </h2>
-        <p className="section-subtitle">
-          Got something in mind, or just want to say hi? Send a note and I&apos;ll get back to you.
-        </p>
-      </div>
+      <div className="contact-panel">
+        <div className="contact-intro">
+          <p className="contact-kicker">
+            <span className="availability-dot" aria-hidden="true" />
+            available for work — 2026
+          </p>
 
-      <div className="contact-body">
+          <h2 id="contact-heading" className="contact-title">
+            Let&apos;s build something worth shipping.
+          </h2>
+
+          <p className="contact-lead">
+            Have a system to untangle, a product to launch, or an idea you want
+            to stress-test? Tell me what you&apos;re working on.
+          </p>
+
+          <a className="contact-email" href={`mailto:${DIRECT_EMAIL}`}>
+            <span className="contact-email-label">email</span>
+            <span className="contact-email-value">{DIRECT_EMAIL}</span>
+            <span className="contact-email-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
+
+          <dl className="contact-facts">
+            <div>
+              <dt>response</dt>
+              <dd>within 48 hours</dd>
+            </div>
+            <div>
+              <dt>based in</dt>
+              <dd>India · IST</dd>
+            </div>
+            <div>
+              <dt>status</dt>
+              <dd className="is-accent">open to collaborate</dd>
+            </div>
+          </dl>
+        </div>
+
         <form action={formAction} className="contact-form" noValidate>
-          <div className="contact-field">
-            <label className="contact-label" htmlFor="contact-name">
-              name
-            </label>
-            <input
-              className="contact-input"
-              id="contact-name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              maxLength={80}
-              placeholder="Your name"
-              aria-invalid={fieldErrors?.name ? true : undefined}
-              aria-describedby={fieldErrors?.name ? 'contact-name-error' : undefined}
-            />
-            {fieldErrors?.name && (
-              <p className="contact-field-error" id="contact-name-error">
-                {fieldErrors.name}
-              </p>
-            )}
+          <div className="contact-form-head">
+            <span className="contact-form-title">Send a message</span>
           </div>
 
-          <div className="contact-field">
-            <label className="contact-label" htmlFor="contact-email">
-              email
-            </label>
-            <input
-              className="contact-input"
-              id="contact-email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              maxLength={200}
-              placeholder="you@company.com"
-              aria-invalid={fieldErrors?.email ? true : undefined}
-              aria-describedby={fieldErrors?.email ? 'contact-email-error' : undefined}
-            />
-            {fieldErrors?.email && (
-              <p className="contact-field-error" id="contact-email-error">
-                {fieldErrors.email}
-              </p>
-            )}
+          <div className="contact-grid">
+            <div className="contact-field">
+              <label className="contact-label" htmlFor="contact-name">
+                name
+              </label>
+              <input
+                className="contact-input"
+                id="contact-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                maxLength={80}
+                placeholder="Your name"
+                aria-invalid={fieldErrors?.name ? true : undefined}
+                aria-describedby={fieldErrors?.name ? 'contact-name-error' : undefined}
+              />
+              {fieldErrors?.name && (
+                <p className="contact-field-error" id="contact-name-error">
+                  {fieldErrors.name}
+                </p>
+              )}
+            </div>
+
+            <div className="contact-field">
+              <label className="contact-label" htmlFor="contact-email">
+                email
+              </label>
+              <input
+                className="contact-input"
+                id="contact-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                maxLength={200}
+                placeholder="you@company.com"
+                aria-invalid={fieldErrors?.email ? true : undefined}
+                aria-describedby={fieldErrors?.email ? 'contact-email-error' : undefined}
+              />
+              {fieldErrors?.email && (
+                <p className="contact-field-error" id="contact-email-error">
+                  {fieldErrors.email}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="contact-field">
@@ -88,9 +127,9 @@ export default function ContactSection() {
               className="contact-textarea"
               id="contact-message"
               name="message"
-              rows={5}
+              rows={6}
               maxLength={2000}
-              placeholder="What are you working on?"
+              placeholder="What are you building, and where does it hurt?"
               aria-invalid={fieldErrors?.message ? true : undefined}
               aria-describedby={fieldErrors?.message ? 'contact-message-error' : undefined}
             />
@@ -113,28 +152,21 @@ export default function ContactSection() {
           </div>
 
           <SubmitButton />
+
+          <div className="contact-feedback">
+            {state.status === 'success' && (
+              <p className="contact-status" role="status">
+                {state.message}
+              </p>
+            )}
+
+            {hasFormError && (
+              <p className="contact-status is-error" role="alert">
+                {state.message}
+              </p>
+            )}
+          </div>
         </form>
-
-        <div className="contact-feedback">
-          {state.status === 'success' && (
-            <p className="contact-status" role="status">
-              {state.message}
-            </p>
-          )}
-
-          {hasFormError && (
-            <p className="contact-status is-error" role="alert">
-              {state.message}
-            </p>
-          )}
-
-          <p className="contact-direct">
-            or email me directly at{' '}
-            <a href={`mailto:${DIRECT_EMAIL}`} className="link">
-              {DIRECT_EMAIL}
-            </a>
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import TopHeader from '@/app/components/TopHeader';
-import BottomNav from '@/app/components/BottomNav';
 import Reveal from '@/app/components/Reveal';
+import SiteFooter from '@/app/components/SiteFooter';
 import { getSortedPostsData } from '@/app/lib/posts';
 
 export default function BlogsPage() {
@@ -9,10 +9,10 @@ export default function BlogsPage() {
 
   return (
     <div className="site-shell">
-      <div style={{ position: 'relative', zIndex: 2 }}>
+      <div className="page-content">
         <TopHeader />
 
-        <main className="reading-column main-content">
+        <main id="top" className="reading-column main-content">
           <Reveal>
             <div className="blogs-page-header">
               <Link href="/" className="blog-back-link">
@@ -40,6 +40,9 @@ export default function BlogsPage() {
                       </Link>
                       <p className="blog-row-desc">{post.description}</p>
                     </div>
+                    <span className="blog-row-arrow" aria-hidden="true">
+                      ↗
+                    </span>
                   </div>
                 </Reveal>
               ))
@@ -59,13 +62,8 @@ export default function BlogsPage() {
             )}
           </div>
           
-          <footer className="site-footer">
-            <span>© 2026 Manan Bansal</span>
-            <span>Built with Next.js & Turbopack</span>
-          </footer>
+          <SiteFooter />
         </main>
-
-        <BottomNav />
       </div>
     </div>
   );

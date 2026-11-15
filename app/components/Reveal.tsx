@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 interface RevealProps {
   children: React.ReactNode;
   delay?: number;
+  className?: string;
 }
 
 /**
@@ -16,7 +17,7 @@ interface RevealProps {
  * unavailable, when a renderer never fires IntersectionObserver, or when the
  * visitor prefers reduced motion.
  */
-export default function Reveal({ children, delay = 0 }: RevealProps) {
+export default function Reveal({ children, delay = 0, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,7 +49,11 @@ export default function Reveal({ children, delay = 0 }: RevealProps) {
   }, []);
 
   return (
-    <div ref={ref} className="reveal" style={{ '--reveal-delay': `${delay}ms` } as React.CSSProperties}>
+    <div
+      ref={ref}
+      className={className ? `reveal ${className}` : 'reveal'}
+      style={{ '--reveal-delay': `${delay}ms` } as React.CSSProperties}
+    >
       {children}
     </div>
   );

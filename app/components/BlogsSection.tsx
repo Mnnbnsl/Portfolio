@@ -27,6 +27,9 @@ export default function BlogsSection({ posts }: BlogsSectionProps) {
                 </Link>
                 <p className="blog-row-desc">{post.description}</p>
               </div>
+              <span className="blog-row-arrow" aria-hidden="true">
+                ↗
+              </span>
             </div>
           </Reveal>
         ))}

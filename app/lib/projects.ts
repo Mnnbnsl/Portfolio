@@ -4,6 +4,7 @@ import { projectOverrides, projectRepoNames } from './project-content';
 export interface Project {
   id: string;
   name: string;
+  slug: string;
   year: number;
   description: string;
   domain: string;
@@ -12,6 +13,17 @@ export interface Project {
   link?: string;
   language?: string;
   stars?: number;
+  status?: string;
+  highlights?: string[];
+  metrics?: { label: string; value: string }[];
+  blogSlug?: string;
+}
+
+export function toProjectSlug(nameOrId: string): string {
+  return nameOrId
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function toYear(pushedAt: string | null | undefined): number | undefined {
@@ -55,15 +67,23 @@ export async function getProjects(): Promise<Project[]> {
       continue;
     }
 
+    const name = override?.name ?? repo?.name ?? repoName;
+    const slug = toProjectSlug(name);
+
     const project: Project = {
       id: repo?.name ?? repoName,
-      name: override?.name ?? repo?.name ?? repoName,
+      name,
+      slug,
       year,
       description,
       domain: override?.domain ?? repo?.language ?? 'Project',
       tags: override?.tags ?? repo?.topics ?? [],
       repo: repo?.html_url,
       link: override?.link ?? repo?.homepage ?? undefined,
+      status: override?.status,
+      highlights: override?.highlights,
+      metrics: override?.metrics,
+      blogSlug: override?.blogSlug,
     };
 
     if (repo?.language) {
@@ -78,4 +98,17 @@ export async function getProjects(): Promise<Project[]> {
   }
 
   return projects;
+}
+
+export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
+  const projects = await getProjects();
+  const normalized = slug.toLowerCase();
+  return projects.find(
+    (p) => p.slug === normalized || toProjectSlug(p.id) === normalized
+  );
+}
+
+export async function getAllProjectSlugs(): Promise<string[]> {
+  const projects = await getProjects();
+  return projects.map((p) => p.slug);
 }
