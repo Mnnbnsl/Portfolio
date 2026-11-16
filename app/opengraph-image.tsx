@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
-export const alt = 'Manan Bansal — AI & Full-Stack Developer';
+export const alt = 'Manan Bansal — AI & Backend Developer';
 export const size = {
   width: 1200,
   height: 630,
@@ -77,7 +77,7 @@ export default async function Image() {
             zIndex: 10,
           }}
         >
-          AI & Full-Stack Developer
+          AI & Backend Developer
         </div>
 
         {/* Footer info line */}
@@ -95,7 +95,7 @@ export default async function Image() {
             zIndex: 10,
           }}
         >
-          <span>mananbansal.dev</span>
+          <span>mnnbnsl.vercel.app</span>
           <span>NIT Jalandhar</span>
         </div>
       </div>

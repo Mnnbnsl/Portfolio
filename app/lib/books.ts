@@ -211,7 +211,7 @@ async function fetchHardcoverReads(): Promise<Book[]> {
   try {
     const hc = new HardcoverClient({
       token,
-      userAgent: 'mananbansal.dev (portfolio)',
+      userAgent: 'mnnbnsl.vercel.app (portfolio)',
     });
 
     const books: Book[] = [];

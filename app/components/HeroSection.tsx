@@ -32,7 +32,7 @@ export default function HeroSection() {
         <h1 id="intro-heading">Manan Bansal</h1>
 
         <p className="hero-role">
-          AI &amp; full-stack developer building intelligent systems and the
+          AI &amp; backend developer building intelligent systems and the
           infrastructure behind them.
         </p>
 

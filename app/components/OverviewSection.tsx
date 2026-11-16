@@ -29,7 +29,7 @@ export default function OverviewSection() {
         </h2>
 
         <p className="overview-lede">
-          Hey, I&apos;m Manan — a 19 year old AI &amp; full-stack developer and
+          Hey, I&apos;m Manan — a 19 year old AI &amp; backend developer and
           third-year engineering undergrad at{' '}
           <span className="overview-em">NITJ</span>. I spend my days building
           across{' '}

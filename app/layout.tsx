@@ -5,7 +5,15 @@ import {
   Instrument_Serif,
   JetBrains_Mono,
 } from "next/font/google";
-import Preloader from "./components/Preloader";
+import {
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_TITLE,
+  SITE_URL,
+  TWITTER_CREATOR,
+} from "./lib/site";
 import "./globals.css";
 
 const displayFont = Instrument_Serif({
@@ -28,27 +36,53 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://mananbansal.dev'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Manan Bansal — AI & Full-Stack Developer",
-    template: "%s | Manan Bansal",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "Personal portfolio, selected work, writing, and engineering notes.",
-  authors: [{ name: "Manan Bansal" }],
-  creator: "Manan Bansal",
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "Manan Bansal",
+    "Software Developer",
+    "Backend Engineering",
+    "Backend Developer",
+    "AI Engineering",
+    "Distributed Systems",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://mananbansal.dev",
-    title: "Manan Bansal — AI & Full-Stack Developer",
-    description: "Personal portfolio, selected work, writing, and engineering notes.",
-    siteName: "Manan Bansal Portfolio",
+    locale: SITE_LOCALE,
+    url: "/",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    images: [SITE_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manan Bansal — AI & Full-Stack Developer",
-    description: "Personal portfolio, selected work, writing, and engineering notes.",
-    creator: "@mnnbnsl",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    creator: TWITTER_CREATOR,
+    images: [SITE_OG_IMAGE],
   },
 };
 
@@ -75,7 +109,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         </noscript>
         <div className="page-grid" aria-hidden="true" />
         <div className="scroll-progress" aria-hidden="true" />
-        <Preloader />
         {children}
       </body>
     </html>

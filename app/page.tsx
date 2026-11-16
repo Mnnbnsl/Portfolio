@@ -1,4 +1,5 @@
 import TopHeader from './components/TopHeader';
+import Preloader from './components/Preloader';
 import HeroSection from './components/HeroSection';
 import OverviewSection from './components/OverviewSection';
 import Projects from './components/Projects';
@@ -19,6 +20,9 @@ export default async function Home() {
 
   return (
     <div className="site-shell" id="home">
+      {/* The intro loader hands its name off to the hero heading, so it only
+          belongs on this route. Every other page paints immediately. */}
+      <Preloader />
       <div className="page-content">
         <TopHeader />
 

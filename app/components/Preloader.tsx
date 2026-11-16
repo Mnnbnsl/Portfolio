@@ -4,11 +4,29 @@ import { useEffect, useState } from 'react';
 
 type Phase = 'loading' | 'leaving' | 'done';
 
+/**
+ * The intro belongs to the first view of the home route in a page load. The
+ * module outlives client-side navigations, so returning to `/` starts with
+ * the content already in place instead of replaying the 1.5s overlay.
+ */
+let introPlayed = false;
+
 export default function Preloader() {
-  const [phase, setPhase] = useState<Phase>('loading');
+  const [phase, setPhase] = useState<Phase>(() =>
+    introPlayed ? 'done' : 'loading'
+  );
 
   useEffect(() => {
     const root = document.documentElement;
+
+    if (introPlayed) {
+      // A later visit resumes at the settled state the intro would end on.
+      root.dataset.boot = 'loaded';
+      return;
+    }
+
+    introPlayed = true;
+
     const reducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
@@ -53,12 +71,12 @@ export default function Preloader() {
 
       root.dataset.boot = 'loaded';
       setPhase('leaving');
-    }, 1150);
+    }, 900);
 
     const doneTimer = window.setTimeout(() => {
       root.style.overflow = previousOverflow;
       setPhase('done');
-    }, 2050);
+    }, 1750);
 
     return () => {
       window.clearTimeout(leaveTimer);

@@ -30,25 +30,41 @@ export default function TopHeader() {
     };
 
     updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+
+    // Only the minute is displayed, so tick once a minute instead of every
+    // second: no wasted renders competing with user input (INP). The first
+    // tick is aligned to the minute boundary so the clock never lags.
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const alignToMinute = window.setTimeout(() => {
+      updateTime();
+      interval = setInterval(updateTime, 60_000);
+    }, 60_000 - (Date.now() % 60_000));
+
+    return () => {
+      window.clearTimeout(alignToMinute);
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, []);
 
   return (
     <header className="top-header" aria-label="Main navigation header">
       <div className="header-container">
         {/* Identity */}
-        <Link
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- native hash link; smooth scrolling comes from CSS */}
+        <a
           href="/#home"
           className="header-brand"
           aria-label="Home"
           data-label="Home"
         >
           <HomeIcon />
-        </Link>
+        </a>
 
         <nav className="header-nav" aria-label="Primary navigation">
-          <Link
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- native hash link; smooth scrolling comes from CSS */}
+          <a
             href="/#projects"
             className={`nav-item${projectsActive ? ' is-active' : ''}`}
             aria-label="Projects"
@@ -56,7 +72,7 @@ export default function TopHeader() {
             data-label="Projects"
           >
             <ProjectsIcon />
-          </Link>
+          </a>
           <Link
             href="/blogs"
             className={`nav-item${writingActive ? ' is-active' : ''}`}
@@ -75,14 +91,15 @@ export default function TopHeader() {
           >
             <ReadingIcon />
           </Link>
-          <Link
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- native hash link; smooth scrolling comes from CSS */}
+          <a
             href="/#contact"
             className="nav-item"
             aria-label="Contact"
             data-label="Contact"
           >
             <ContactIcon />
-          </Link>
+          </a>
         </nav>
 
         {/* Live Telemetry / Clock */}

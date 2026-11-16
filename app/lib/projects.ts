@@ -1,5 +1,9 @@
 import { getRepos, type GitHubRepo } from './github';
-import { projectOverrides, projectRepoNames } from './project-content';
+import {
+  projectOverrides,
+  projectRepoNames,
+  type ProjectArchitecture,
+} from './project-content';
 
 export interface Project {
   id: string;
@@ -13,10 +17,13 @@ export interface Project {
   link?: string;
   language?: string;
   stars?: number;
+  /** Last commit date reported by GitHub, when the API answered. */
+  updatedAt?: string;
   status?: string;
   highlights?: string[];
   metrics?: { label: string; value: string }[];
   blogSlug?: string;
+  architecture?: ProjectArchitecture;
 }
 
 export function toProjectSlug(nameOrId: string): string {
@@ -84,6 +91,7 @@ export async function getProjects(): Promise<Project[]> {
       highlights: override?.highlights,
       metrics: override?.metrics,
       blogSlug: override?.blogSlug,
+      architecture: override?.architecture,
     };
 
     if (repo?.language) {
@@ -92,6 +100,10 @@ export async function getProjects(): Promise<Project[]> {
 
     if (repo && repo.stargazers_count > 0) {
       project.stars = repo.stargazers_count;
+    }
+
+    if (repo?.pushed_at) {
+      project.updatedAt = repo.pushed_at;
     }
 
     projects.push(project);

@@ -1,3 +1,13 @@
+export interface ArchitectureLayer {
+  label: string;
+  nodes: string[];
+}
+
+export interface ProjectArchitecture {
+  caption?: string;
+  layers: ArchitectureLayer[];
+}
+
 export interface ProjectOverride {
   name?: string;
   year?: number;
@@ -9,6 +19,7 @@ export interface ProjectOverride {
   metrics?: { label: string; value: string }[];
   status?: string;
   blogSlug?: string;
+  architecture?: ProjectArchitecture;
 }
 
 /**
@@ -52,6 +63,22 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'Protocol', value: 'RESP2 / TCP' },
       { label: 'Event Loop', value: 'epoll' },
     ],
+    architecture: {
+      caption:
+        'A single Go process decodes RESP2, parks sockets in epoll, and serves every read straight from memory.',
+      layers: [
+        { label: 'Clients', nodes: ['redis-cli', 'TCP clients'] },
+        { label: 'Protocol', nodes: ['RESP2 decoder', 'RESP2 encoder'] },
+        {
+          label: 'Event loop',
+          nodes: ['epoll acceptor', 'read handler', 'write handler'],
+        },
+        {
+          label: 'Storage',
+          nodes: ['In-memory dictionary', 'Active TTL sweep', 'Lazy expiration'],
+        },
+      ],
+    },
   },
   shorty: {
     year: 2026,
@@ -69,6 +96,16 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'Store', value: 'PostgreSQL' },
       { label: 'Cache', value: 'Redis' },
     ],
+    architecture: {
+      caption:
+        'Writes land in PostgreSQL; redirects short-circuit through the Redis cache with a sub-millisecond fast path.',
+      layers: [
+        { label: 'Edge', nodes: ['HTTP API', 'Redirect handler'] },
+        { label: 'Encoding', nodes: ['Base62 tokenizer', 'Collision check'] },
+        { label: 'Cache', nodes: ['Redis fast path', 'Sub-1ms lookup'] },
+        { label: 'Storage', nodes: ['PostgreSQL pool', 'links table'] },
+      ],
+    },
   },
   'Mockingjay-Claw': {
     year: 2026,
@@ -87,6 +124,16 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'Search', value: 'ripgrep' },
       { label: 'Interface', value: 'CLI Terminal' },
     ],
+    architecture: {
+      caption:
+        'One prompt loop drives a small tool surface, then reads and writes the workspace directly from the terminal.',
+      layers: [
+        { label: 'Interface', nodes: ['Terminal REPL', 'Prompt loop'] },
+        { label: 'Tools', nodes: ['read_file', 'edit_file', 'web search'] },
+        { label: 'Search', nodes: ['ripgrep', 'symbol lookup'] },
+        { label: 'Writes', nodes: ['Atomic edits', 'git diff'] },
+      ],
+    },
     blogSlug: 'building-mockingjay-claw',
   },
   'Smart-Stock-Engine': {
@@ -106,6 +153,22 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'Model', value: 'LSTM / Seq2Seq' },
       { label: 'Horizon', value: 'Multi-Step' },
     ],
+    architecture: {
+      caption:
+        'Market OHLCV history feeds an indicator pipeline before the PyTorch forecaster projects the next horizon.',
+      layers: [
+        { label: 'Input', nodes: ['OHLCV history', 'Delivery data'] },
+        {
+          label: 'Features',
+          nodes: ['RSI', 'MACD', 'Bollinger Bands', 'Momentum'],
+        },
+        { label: 'Model', nodes: ['PyTorch', 'LSTM / Seq2Seq'] },
+        {
+          label: 'Output',
+          nodes: ['Multi-step forecast', 'Confidence bands', 'Backtesting'],
+        },
+      ],
+    },
   },
   Vapor: {
     year: 2026,
@@ -123,6 +186,16 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'State', value: 'Pure RAM' },
       { label: 'Transport', value: 'WebSockets' },
     ],
+    architecture: {
+      caption:
+        'Rooms exist only in memory. When the last socket leaves, the sweeper erases the room without touching disk.',
+      layers: [
+        { label: 'Client', nodes: ['Next.js UI', 'WebSocket client'] },
+        { label: 'Realtime', nodes: ['Socket server', 'Room registry'] },
+        { label: 'State', nodes: ['RAM message store', 'Presence map'] },
+        { label: 'Lifecycle', nodes: ['5-minute sweeper', 'Zero disk writes'] },
+      ],
+    },
     blogSlug: 'vapor-ephemeral-chat',
   },
   Sahayak: {
@@ -143,6 +216,19 @@ export const projectOverrides: Record<string, ProjectOverride | undefined> = {
       { label: 'Sockets', value: 'Socket.IO' },
       { label: 'Status', value: 'Live Platform' },
     ],
+    architecture: {
+      caption:
+        'Distress reports are triaged, mapped, and routed to nearby volunteer clusters in real time.',
+      layers: [
+        { label: 'Intake', nodes: ['Report form', 'Distress beacon'] },
+        { label: 'AI triage', nodes: ['Severity scoring', 'Incident summary'] },
+        {
+          label: 'Coordination',
+          nodes: ['Socket.IO mesh', 'Volunteer clusters'],
+        },
+        { label: 'Data', nodes: ['MongoDB', 'Cloudinary media'] },
+      ],
+    },
     blogSlug: 'sahayak-disaster-response',
   },
 };

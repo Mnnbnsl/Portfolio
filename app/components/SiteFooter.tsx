@@ -13,7 +13,7 @@ export default function SiteFooter() {
         <div className="footer-brand">
           <p className="footer-eyebrow">Manan Bansal</p>
           <p className="footer-note">
-            AI &amp; full-stack developer building intelligent systems,
+            AI &amp; backend developer building intelligent systems,
             automation, and the infrastructure behind them.
           </p>
           <a className="footer-email" href={`mailto:${EMAIL}`}>
@@ -27,13 +27,15 @@ export default function SiteFooter() {
             <h2 className="footer-heading">Explore</h2>
             <ul>
               <li>
-                <Link href="/#projects">Projects</Link>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- native hash link; smooth scrolling comes from CSS */}
+                <a href="/#projects">Projects</a>
               </li>
               <li>
                 <Link href="/blogs">Writing</Link>
               </li>
               <li>
-                <Link href="/#contact">Contact</Link>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- native hash link; smooth scrolling comes from CSS */}
+                <a href="/#contact">Contact</a>
               </li>
             </ul>
           </div>

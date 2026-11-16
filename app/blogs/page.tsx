@@ -1,8 +1,42 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import TopHeader from '@/app/components/TopHeader';
 import Reveal from '@/app/components/Reveal';
 import SiteFooter from '@/app/components/SiteFooter';
 import { getSortedPostsData } from '@/app/lib/posts';
+import {
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  TWITTER_CREATOR,
+} from '@/app/lib/site';
+
+const BLOGS_DESCRIPTION =
+  'Notes on software systems, automation, artificial intelligence, and building things from scratch.';
+
+export const metadata: Metadata = {
+  title: 'Writing',
+  description: BLOGS_DESCRIPTION,
+  alternates: {
+    canonical: '/blogs',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/blogs',
+    title: `Writing — ${SITE_NAME}`,
+    description: BLOGS_DESCRIPTION,
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
+    images: [SITE_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Writing — ${SITE_NAME}`,
+    description: BLOGS_DESCRIPTION,
+    creator: TWITTER_CREATOR,
+    images: [SITE_OG_IMAGE],
+  },
+};
 
 export default function BlogsPage() {
   const posts = getSortedPostsData();
