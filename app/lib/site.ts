@@ -1,3 +1,5 @@
+import ogImage from '@/assets/og-image.png';
+
 /**
  * Single source of truth for the canonical origin and shared metadata.
  * Set NEXT_PUBLIC_SITE_URL (or SITE_URL) in the deployment environment when
@@ -17,10 +19,14 @@ export const SITE_DESCRIPTION =
 export const SITE_LOCALE = 'en_US';
 export const TWITTER_CREATOR = '@mugiwara_mnn';
 
+/**
+ * One branded share card for every route. Served from the static asset so
+ * crawlers get a stable, cacheable file instead of a generated response.
+ */
 export const SITE_OG_IMAGE = {
-  url: '/opengraph-image',
-  width: 1200,
-  height: 630,
+  url: ogImage.src,
+  width: ogImage.width,
+  height: ogImage.height,
   alt: `${SITE_NAME} — AI & Backend Developer`,
 } as const;
 

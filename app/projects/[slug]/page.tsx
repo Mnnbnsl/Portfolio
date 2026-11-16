@@ -15,6 +15,7 @@ import {
   SITE_DESCRIPTION,
   SITE_LOCALE,
   SITE_NAME,
+  SITE_OG_IMAGE,
   SITE_URL,
   TWITTER_CREATOR,
   absoluteUrl,
@@ -61,9 +62,7 @@ export async function generateMetadata({
   const title = `${project.name} — ${project.domain} case study`;
   const images = [
     {
-      url: `${path}/opengraph-image`,
-      width: 1200,
-      height: 630,
+      ...SITE_OG_IMAGE,
       alt: `${project.name} — ${project.domain} project by ${SITE_NAME}`,
     },
   ];
@@ -153,7 +152,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const architectureIndex = sectionNumber(hasHighlights ? 3 : 2);
 
   const projectUrl = absoluteUrl(`/projects/${project.slug}`);
-  const projectImage = absoluteUrl(`/projects/${project.slug}/opengraph-image`);
+  const projectImage = absoluteUrl(SITE_OG_IMAGE.url);
   const projectDatesIso = projectDates(project);
   const structuredData = {
     '@context': 'https://schema.org',
@@ -202,8 +201,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         primaryImageOfPage: {
           '@type': 'ImageObject',
           url: projectImage,
-          width: 1200,
-          height: 630,
+          width: SITE_OG_IMAGE.width,
+          height: SITE_OG_IMAGE.height,
         },
         about: { '@id': `${projectUrl}#project` },
         datePublished: projectDatesIso.published,
